@@ -1,0 +1,22 @@
+INDICACIONES PARA COMPILAR Y EJECUTAR TRABAJO:
+
+	Este trabajo se elaboró en Ubuntu.
+
+-Para el archivo "trabajodrg.cpp"
+	compilar:
+
+	g++ trabajodrg.cpp -o trabajodrg -lGL -lGLU -lglut
+
+	ejecutar:
+
+	./trabajodrg
+
+
+-Para el archivo "trabajodrg2.cpp"
+	compilar:
+
+	g++ trabajodrg2.cpp -o trabajodrg2 -lGL -lGLU -lglut
+
+	ejecutar:
+
+	./trabajodrg2
