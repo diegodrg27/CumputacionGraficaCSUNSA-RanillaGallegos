@@ -1,0 +1,10 @@
+Códigos ----> tarea y tarea2
+tarea : Transformaciones en 2D 
+tarea2 :Transformaciones en 3D
+
+Compilar trabajos:
+- g++ tarea.cpp -o tarea -lGL -lGLU -lglut
+- g++ tarea2.cpp -o tarea2 -lGL -lGLU -lglut
+
+
+
