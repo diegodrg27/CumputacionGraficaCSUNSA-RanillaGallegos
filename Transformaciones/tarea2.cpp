@@ -1,3 +1,5 @@
+/******************************Trasladar, rotar, escalar en 3D**************************************************/
+
 #include <GL/glut.h>
 
 GLfloat anguloCuboX = 0.0f;
@@ -223,26 +225,26 @@ void keyboard(unsigned char key, int x, int y)
 {
 	switch(key)
 	{
-	case 'p':
+	case 'p'://aumenta su tamaño
 	case 'P':
 		hazPerspectiva=1;		
 		reshape(ancho,alto);
 		break;
 
-	case 'o':
+	case 'o'://reduce su tamaño
 	case 'O':
 		hazPerspectiva=0;
 		reshape(ancho,alto);
 		break;
 
-	case 'd':
+	case 'd'://mueve derecha
 	case 'D':
 		derecha = true;
 		izquierda = false;
 		reshape(ancho,alto);
 		break;
 
-	case 'a':
+	case 'a'://mueve izquierda
 	case 'A':
 		derecha = false;
 		izquierda = true;

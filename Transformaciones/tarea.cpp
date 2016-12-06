@@ -1,3 +1,5 @@
+/******************************Trasladar, rotar, escalar en 2D**************************************************/
+
 #include <GL/glut.h>
 #include <vector>
 #include <iostream>
@@ -71,6 +73,58 @@ void raton(int boton,int estado,int x,int y){
 	glutPostRedisplay();
 }
 
+void pintar (){ //esta funcion se encarga de pintar el poligono
+	int tam = puntos.size();
+	glLineWidth(5.0);
+	glBegin(GL_LINES);
+		for(int i=1;i<tam;i++){/// puntos
+			if (puntos[i-1].x < puntos[i].x){
+				float pendiente = (puntos[i].y-puntos[i-1].y)/(puntos[i].x-puntos[i-1].x);
+				int y;
+				for (int j=puntos[i-1].x ; j<=puntos[i].x;j++){
+					y = j*pendiente - puntos[i-1].x * pendiente + puntos[i-1].y;
+					glVertex2d(j,y);
+					glVertex2d((*centro).x,(*centro).y);
+				}
+			}
+
+			else {
+					float pendiente = (puntos[i-1].y-puntos[i].y)/(puntos[i-1].x-puntos[i].x);
+					int y;
+					for (int j=puntos[i].x ; j<=puntos[i-1].x;j++){
+						y = j*pendiente - puntos[i].x * pendiente + puntos[i].y;
+						glVertex2d(j,y);
+						glVertex2d((*centro).x,(*centro).y);			
+					}
+				
+			}
+		}
+
+		if (puntos[tam-1].x < puntos[0].x){
+				float pendiente = (puntos[0].y-puntos[tam-1].y)/(puntos[0].x-puntos[tam-1].x);
+				int y;
+				for (int j=puntos[tam-1].x ; j<=puntos[0].x;j++){
+					y = j*pendiente - puntos[tam-1].x * pendiente + puntos[tam-1].y;
+					glVertex2d(j,y);
+					glVertex2d((*centro).x,(*centro).y);
+				}
+			}
+
+			else {
+					float pendiente = (puntos[tam-1].y-puntos[0].y)/(puntos[tam-1].x-puntos[0].x);
+					int y;
+					for (int j=puntos[0].x ; j<=puntos[tam-1].x;j++){
+						y = j*pendiente - puntos[0].x * pendiente + puntos[0].y;
+						glVertex2d(j,y);
+						glVertex2d((*centro).x,(*centro).y);			
+					}
+				
+			}
+	glEnd();
+
+}
+
+
 void trasladar(void){
 	int distX,distY;
 	int cambioX, cambioY;
@@ -116,6 +170,8 @@ void trasladar(void){
 		glVertex2d(puntos[tam-1].x ,puntos[tam-1].y );
 		glVertex2d(puntos[0].x ,puntos[0].y);
 	glEnd();
+	pintar();
+
 	return;
 
 }
@@ -175,6 +231,8 @@ void escalar(void){
 		(*centro).y = (*centro).y * escY + (*centro).y * (1 - escY);
 	glEnd();
 
+	pintar();
+
 }
 
 void rotar(void){
@@ -224,15 +282,15 @@ void rotar(void){
 		(*centro).y = ((*centro).x * sin(angulo)) + (cos(angulo) * (*centro).y) + (((*centro).y * (1-cos(angulo))) - ( (*centro).x * sin(angulo)));
 
 	glEnd();
+
+	pintar();
 	return;
 
 }
 
 
-
 void menu(){
 	int opcion=5;
-	centro = buscarPuntoCentral();
 	cout<<"puntero"<<endl;
 	cout<<(*centro).x<<" "<<(*centro).y<<endl;
 
@@ -288,7 +346,9 @@ void Dibuja(void){
 
 				glutMouseFunc(NULL);
 				cerrado = true;		
-
+				centro = buscarPuntoCentral();
+				//aqui se pinta
+				pintar();
 				glFlush();
 				menu();
 				exit(0);
@@ -296,6 +356,7 @@ void Dibuja(void){
 		}
 	glFlush();
 }
+
 
 void inicializa(){	
 	glClearColor(0.0,0.0,0.0,0.0);
